@@ -10,11 +10,14 @@ export const registerSchema = z.object({
     .url("Foto deve ser uma URL válida")
     .optional()
     .or(z.literal("")),
-  email: z.email("Email inválido"),
+  email: z.string().email("Email inválido"),
   password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
 });
 
 export const loginSchema = z.object({
-  email: z.email("Email inválido"),
+  email: z.string().email("Email inválido"),
   password: z.string().min(1, "Senha é obrigatória"),
 });
+
+export type RegisterInput = z.infer<typeof registerSchema>;
+export type LoginInput = z.infer<typeof loginSchema>;

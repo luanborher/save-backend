@@ -1,39 +1,138 @@
-import { prisma } from "@/lib/prisma";
-import { verifyToken } from "@/lib/auth";
-import { serializeUser } from "@/lib/user";
+import { getAuthenticatedUser, AuthError } from "@/modules/auth/auth.guard";
+import { userService, UserServiceError } from "@/modules/users/user.service";
+import { updateMeSchema } from "@/modules/users/user.schema";
 
 export async function GET(request: Request) {
   try {
-    const authHeader = request.headers.get("authorization");
+    const user = await getAuthenticatedUser(request);
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return Response.json({ error: "Token não enviado" }, { status: 401 });
+    const me = await userService.getMe(user.id);
+
+    return Response.json(me);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      if (error.message === "TOKEN_NOT_PROVIDED") {
+        return Response.json({ error: "Token não enviado" }, { status: 401 });
+      }
+
+      if (error.message === "INVALID_TOKEN_FORMAT") {
+        return Response.json(
+          { error: "Formato do token inválido" },
+          { status: 401 },
+        );
+      }
+
+      if (error.message === "INVALID_OR_EXPIRED_TOKEN") {
+        return Response.json(
+          { error: "Token inválido ou expirado" },
+          { status: 401 },
+        );
+      }
+
+      if (error.message === "USER_NOT_FOUND") {
+        return Response.json(
+          { error: "Usuário não encontrado" },
+          { status: 404 },
+        );
+      }
     }
 
-    const token = authHeader.split(" ")[1];
+    if (error instanceof UserServiceError) {
+      if (error.message === "USER_NOT_FOUND") {
+        return Response.json(
+          { error: "Usuário não encontrado" },
+          { status: 404 },
+        );
+      }
+    }
 
-    const payload = verifyToken(token);
+    return Response.json(
+      { error: "Erro interno do servidor" },
+      { status: 500 },
+    );
+  }
+}
 
-    const user = await prisma.user.findUnique({
-      where: {
-        id: payload.userId,
-      },
-    });
+export async function PATCH(request: Request) {
+  try {
+    const authenticatedUser = await getAuthenticatedUser(request);
 
-    if (!user) {
+    const body = await request.json();
+    const parsed = updateMeSchema.safeParse(body);
+
+    if (!parsed.success) {
       return Response.json(
-        { error: "Usuário não encontrado" },
-        { status: 404 },
+        {
+          error: "Dados inválidos",
+          details: parsed.error.flatten(),
+        },
+        { status: 400 },
       );
     }
 
-    return Response.json(serializeUser(user));
+    const updatedUser = await userService.updateMe(
+      authenticatedUser.id,
+      parsed.data,
+    );
+
+    return Response.json({
+      message: "Usuário atualizado com sucesso",
+      user: updatedUser,
+    });
   } catch (error) {
-    console.error("ME_ERROR", error);
+    if (error instanceof AuthError) {
+      if (error.message === "TOKEN_NOT_PROVIDED") {
+        return Response.json({ error: "Token não enviado" }, { status: 401 });
+      }
+
+      if (error.message === "INVALID_TOKEN_FORMAT") {
+        return Response.json(
+          { error: "Formato do token inválido" },
+          { status: 401 },
+        );
+      }
+
+      if (error.message === "INVALID_OR_EXPIRED_TOKEN") {
+        return Response.json(
+          { error: "Token inválido ou expirado" },
+          { status: 401 },
+        );
+      }
+
+      if (error.message === "USER_NOT_FOUND") {
+        return Response.json(
+          { error: "Usuário não encontrado" },
+          { status: 404 },
+        );
+      }
+    }
+
+    if (error instanceof UserServiceError) {
+      if (error.message === "USER_NOT_FOUND") {
+        return Response.json(
+          { error: "Usuário não encontrado" },
+          { status: 404 },
+        );
+      }
+
+      if (error.message === "EMAIL_ALREADY_EXISTS") {
+        return Response.json(
+          { error: "Já existe um usuário com esse email" },
+          { status: 409 },
+        );
+      }
+
+      if (error.message === "CPF_ALREADY_EXISTS") {
+        return Response.json(
+          { error: "Já existe um usuário com esse CPF" },
+          { status: 409 },
+        );
+      }
+    }
 
     return Response.json(
-      { error: "Token inválido ou expirado" },
-      { status: 401 },
+      { error: "Erro interno do servidor" },
+      { status: 500 },
     );
   }
 }

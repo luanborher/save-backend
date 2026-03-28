@@ -1,13 +1,9 @@
-import { prisma } from "@/lib/prisma";
-import { registerSchema } from "@/lib/validations";
-import { serializeUser } from "@/lib/user";
-import { generateToken } from "@/lib/auth";
-import bcrypt from "bcryptjs";
+import { registerSchema } from "@/modules/auth/auth.schema";
+import { authService } from "@/modules/auth/auth.service";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-
     const parsed = registerSchema.safeParse(body);
 
     if (!parsed.success) {
@@ -20,59 +16,25 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, birthDate, phone, cpf, photo, email, password } = parsed.data;
+    const result = await authService.register(parsed.data);
 
-    const existingUserByEmail = await prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (existingUserByEmail) {
-      return Response.json(
-        { error: "Já existe um usuário com esse email" },
-        { status: 409 },
-      );
-    }
-
-    const existingUserByCpf = await prisma.user.findUnique({
-      where: { cpf },
-    });
-
-    if (existingUserByCpf) {
-      return Response.json(
-        { error: "Já existe um usuário com esse CPF" },
-        { status: 409 },
-      );
-    }
-
-    const passwordHash = await bcrypt.hash(password, 10);
-
-    const user = await prisma.user.create({
-      data: {
-        name,
-        birthDate: new Date(birthDate),
-        phone,
-        cpf,
-        photo: photo || null,
-        email,
-        passwordHash,
-      },
-    });
-
-    const token = generateToken({
-      userId: user.id,
-      email: user.email,
-    });
-
-    return Response.json(
-      {
-        message: "Usuário cadastrado com sucesso",
-        token,
-        user: serializeUser(user),
-      },
-      { status: 201 },
-    );
+    return Response.json(result, { status: 201 });
   } catch (error) {
-    console.error("REGISTER_ERROR", error);
+    if (error instanceof Error) {
+      if (error.message === "EMAIL_ALREADY_EXISTS") {
+        return Response.json(
+          { error: "Já existe um usuário com esse email" },
+          { status: 409 },
+        );
+      }
+
+      if (error.message === "CPF_ALREADY_EXISTS") {
+        return Response.json(
+          { error: "Já existe um usuário com esse CPF" },
+          { status: 409 },
+        );
+      }
+    }
 
     return Response.json(
       { error: "Erro interno do servidor" },
