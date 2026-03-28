@@ -1,3 +1,4 @@
+import { handleError } from "@/lib/errors/error-handler";
 import { loginSchema } from "@/modules/auth/auth.schema";
 import { authService } from "@/modules/auth/auth.service";
 
@@ -20,16 +21,6 @@ export async function POST(request: Request) {
 
     return Response.json(result);
   } catch (error) {
-    if (error instanceof Error && error.message === "INVALID_CREDENTIALS") {
-      return Response.json(
-        { error: "Email ou senha inválidos" },
-        { status: 401 },
-      );
-    }
-
-    return Response.json(
-      { error: "Erro interno do servidor" },
-      { status: 500 },
-    );
+    return handleError(error);
   }
 }

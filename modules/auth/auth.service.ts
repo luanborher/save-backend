@@ -3,6 +3,7 @@ import { generateToken } from "@/lib/auth";
 import { authRepository } from "./auth.repository";
 import { serializeUser } from "../users/user.serializer";
 import type { LoginInput, RegisterInput } from "./auth.schema";
+import { AppError } from "@/lib/errors/app-error";
 
 export const authService = {
   async register(input: RegisterInput) {
@@ -11,13 +12,21 @@ export const authService = {
     );
 
     if (existingUserByEmail) {
-      throw new Error("EMAIL_ALREADY_EXISTS");
+      throw new AppError(
+        "Já existe um usuário com esse email",
+        409,
+        "EMAIL_ALREADY_EXISTS",
+      );
     }
 
     const existingUserByCpf = await authRepository.findUserByCpf(input.cpf);
 
     if (existingUserByCpf) {
-      throw new Error("CPF_ALREADY_EXISTS");
+      throw new AppError(
+        "Já existe um usuário com esse CPF",
+        409,
+        "CPF_ALREADY_EXISTS",
+      );
     }
 
     const passwordHash = await bcrypt.hash(input.password, 10);
@@ -48,7 +57,11 @@ export const authService = {
     const user = await authRepository.findUserByEmail(input.email);
 
     if (!user) {
-      throw new Error("INVALID_CREDENTIALS");
+      throw new AppError(
+        "Email ou senha inválidos",
+        401,
+        "INVALID_CREDENTIALS",
+      );
     }
 
     const passwordMatches = await bcrypt.compare(
@@ -57,7 +70,11 @@ export const authService = {
     );
 
     if (!passwordMatches) {
-      throw new Error("INVALID_CREDENTIALS");
+      throw new AppError(
+        "Email ou senha inválidos",
+        401,
+        "INVALID_CREDENTIALS",
+      );
     }
 
     const token = generateToken({
