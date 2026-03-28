@@ -3,11 +3,11 @@ import { userRepository } from "./user.repository";
 import { serializeUser } from "./user.serializer";
 import type { UpdateMeInput } from "./user.schema";
 import type { ChangePasswordInput } from "./change-password.schema";
+import { AppError } from "@/lib/errors/app-error";
 
-export class UserServiceError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "UserServiceError";
+export class UserServiceError extends AppError {
+  constructor(message: string, statusCode = 400, code = "USER_ERROR") {
+    super(message, statusCode, code);
   }
 }
 
@@ -16,7 +16,11 @@ export const userService = {
     const user = await userRepository.findById(userId);
 
     if (!user) {
-      throw new UserServiceError("USER_NOT_FOUND");
+      throw new UserServiceError(
+        "Usuário não encontrado",
+        404,
+        "USER_NOT_FOUND",
+      );
     }
 
     return serializeUser(user);
@@ -26,7 +30,11 @@ export const userService = {
     const currentUser = await userRepository.findById(userId);
 
     if (!currentUser) {
-      throw new UserServiceError("USER_NOT_FOUND");
+      throw new UserServiceError(
+        "Usuário não encontrado",
+        404,
+        "USER_NOT_FOUND",
+      );
     }
 
     if (input.email && input.email !== currentUser.email) {
@@ -35,7 +43,11 @@ export const userService = {
       );
 
       if (existingUserWithEmail && existingUserWithEmail.id !== userId) {
-        throw new UserServiceError("EMAIL_ALREADY_EXISTS");
+        throw new UserServiceError(
+          "Email já cadastrado",
+          400,
+          "EMAIL_ALREADY_EXISTS",
+        );
       }
     }
 
@@ -43,7 +55,11 @@ export const userService = {
       const existingUserWithCpf = await userRepository.findByCpf(input.cpf);
 
       if (existingUserWithCpf && existingUserWithCpf.id !== userId) {
-        throw new UserServiceError("CPF_ALREADY_EXISTS");
+        throw new UserServiceError(
+          "CPF já cadastrado",
+          400,
+          "CPF_ALREADY_EXISTS",
+        );
       }
     }
 
@@ -63,7 +79,11 @@ export const userService = {
     const user = await userRepository.findById(userId);
 
     if (!user) {
-      throw new UserServiceError("USER_NOT_FOUND");
+      throw new UserServiceError(
+        "Usuário não encontrado",
+        404,
+        "USER_NOT_FOUND",
+      );
     }
 
     const passwordMatches = await bcrypt.compare(
@@ -72,7 +92,11 @@ export const userService = {
     );
 
     if (!passwordMatches) {
-      throw new UserServiceError("INVALID_CURRENT_PASSWORD");
+      throw new UserServiceError(
+        "Senha atual incorreta",
+        401,
+        "INVALID_CURRENT_PASSWORD",
+      );
     }
 
     const newPasswordHash = await bcrypt.hash(input.newPassword, 10);
