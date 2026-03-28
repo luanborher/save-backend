@@ -1,11 +1,6 @@
-import { handleOptions, withCors } from "@/lib/cors";
 import { handleError } from "@/lib/errors/error-handler";
 import { registerSchema } from "@/modules/auth/auth.schema";
 import { authService } from "@/modules/auth/auth.service";
-
-export async function OPTIONS() {
-  return handleOptions();
-}
 
 export async function POST(request: Request) {
   try {
@@ -24,8 +19,8 @@ export async function POST(request: Request) {
 
     const result = await authService.register(parsed.data);
 
-    return withCors(Response.json(result, { status: 201 }));
+    return Response.json(result, { status: 201 });
   } catch (error) {
-    return withCors(handleError(error));
+    return handleError(error);
   }
 }
