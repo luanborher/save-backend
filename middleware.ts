@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:5173",
-  "https://tickabr.netlify.app",
+  "https://tickabr.vercel.app",
 ];
 
 function getAllowedOrigin(origin: string | null) {
