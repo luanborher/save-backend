@@ -384,7 +384,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  List: 'List',
+  ListItem: 'ListItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,7 +402,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user"
+    modelProps: "user" | "list" | "listItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -478,6 +480,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    List: {
+      payload: Prisma.$ListPayload<ExtArgs>
+      fields: Prisma.ListFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ListFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ListFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListPayload>
+        }
+        findFirst: {
+          args: Prisma.ListFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ListFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListPayload>
+        }
+        findMany: {
+          args: Prisma.ListFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListPayload>[]
+        }
+        create: {
+          args: Prisma.ListCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListPayload>
+        }
+        createMany: {
+          args: Prisma.ListCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ListCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListPayload>[]
+        }
+        delete: {
+          args: Prisma.ListDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListPayload>
+        }
+        update: {
+          args: Prisma.ListUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListPayload>
+        }
+        deleteMany: {
+          args: Prisma.ListDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ListUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ListUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListPayload>[]
+        }
+        upsert: {
+          args: Prisma.ListUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListPayload>
+        }
+        aggregate: {
+          args: Prisma.ListAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateList>
+        }
+        groupBy: {
+          args: Prisma.ListGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ListGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ListCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ListCountAggregateOutputType> | number
+        }
+      }
+    }
+    ListItem: {
+      payload: Prisma.$ListItemPayload<ExtArgs>
+      fields: Prisma.ListItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ListItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ListItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListItemPayload>
+        }
+        findFirst: {
+          args: Prisma.ListItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ListItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListItemPayload>
+        }
+        findMany: {
+          args: Prisma.ListItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListItemPayload>[]
+        }
+        create: {
+          args: Prisma.ListItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListItemPayload>
+        }
+        createMany: {
+          args: Prisma.ListItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ListItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListItemPayload>[]
+        }
+        delete: {
+          args: Prisma.ListItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListItemPayload>
+        }
+        update: {
+          args: Prisma.ListItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.ListItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ListItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ListItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.ListItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ListItemPayload>
+        }
+        aggregate: {
+          args: Prisma.ListItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateListItem>
+        }
+        groupBy: {
+          args: Prisma.ListItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ListItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ListItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ListItemCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -531,6 +681,35 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const ListScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isGrid: 'isGrid',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type ListScalarFieldEnum = (typeof ListScalarFieldEnum)[keyof typeof ListScalarFieldEnum]
+
+
+export const ListItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  status: 'status',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt',
+  image: 'image',
+  description: 'description',
+  highlighted: 'highlighted',
+  updatedAt: 'updatedAt',
+  listId: 'listId'
+} as const
+
+export type ListItemScalarFieldEnum = (typeof ListItemScalarFieldEnum)[keyof typeof ListItemScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -602,6 +781,27 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'ListItemStatus'
+ */
+export type EnumListItemStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ListItemStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ListItemStatus[]'
+ */
+export type ListEnumListItemStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ListItemStatus[]'>
     
 
 
@@ -714,6 +914,8 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  list?: Prisma.ListOmit
+  listItem?: Prisma.ListItemOmit
 }
 
 /* Types for Logging */
