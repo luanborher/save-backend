@@ -27,6 +27,7 @@ model List {
   name        String
   description String?
   isGrid      Boolean    @default(false)
+  iconNumber  Int        @default(1)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 

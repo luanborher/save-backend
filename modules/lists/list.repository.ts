@@ -12,6 +12,7 @@ export const listRepository = {
     name: string;
     description?: string;
     isGrid?: boolean;
+    iconNumber?: 1 | 2 | 3 | 4 | 5;
     userId: number;
   }) {
     return prisma.list.create({
@@ -19,6 +20,7 @@ export const listRepository = {
         name: data.name,
         description: data.description ?? null,
         isGrid: data.isGrid ?? false,
+        iconNumber: data.iconNumber ?? 1,
         userId: data.userId,
       },
     });
@@ -36,6 +38,21 @@ export const listRepository = {
   deleteById(id: number) {
     return prisma.list.delete({
       where: { id },
+    });
+  },
+
+  updateById(
+    id: number,
+    data: {
+      name?: string;
+      description?: string;
+      isGrid?: boolean;
+      iconNumber?: 1 | 2 | 3 | 4 | 5;
+    },
+  ) {
+    return prisma.list.update({
+      where: { id },
+      data,
     });
   },
 };

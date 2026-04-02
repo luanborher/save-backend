@@ -4,7 +4,7 @@ export const itemRepository = {
   findManyByListId(listId: number) {
     return prisma.listItem.findMany({
       where: { listId },
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ status: "asc" }, { createdAt: "desc" }],
     });
   },
 

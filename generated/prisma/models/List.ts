@@ -28,11 +28,13 @@ export type AggregateList = {
 
 export type ListAvgAggregateOutputType = {
   id: number | null
+  iconNumber: number | null
   userId: number | null
 }
 
 export type ListSumAggregateOutputType = {
   id: number | null
+  iconNumber: number | null
   userId: number | null
 }
 
@@ -41,6 +43,7 @@ export type ListMinAggregateOutputType = {
   name: string | null
   description: string | null
   isGrid: boolean | null
+  iconNumber: number | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: number | null
@@ -51,6 +54,7 @@ export type ListMaxAggregateOutputType = {
   name: string | null
   description: string | null
   isGrid: boolean | null
+  iconNumber: number | null
   createdAt: Date | null
   updatedAt: Date | null
   userId: number | null
@@ -61,6 +65,7 @@ export type ListCountAggregateOutputType = {
   name: number
   description: number
   isGrid: number
+  iconNumber: number
   createdAt: number
   updatedAt: number
   userId: number
@@ -70,11 +75,13 @@ export type ListCountAggregateOutputType = {
 
 export type ListAvgAggregateInputType = {
   id?: true
+  iconNumber?: true
   userId?: true
 }
 
 export type ListSumAggregateInputType = {
   id?: true
+  iconNumber?: true
   userId?: true
 }
 
@@ -83,6 +90,7 @@ export type ListMinAggregateInputType = {
   name?: true
   description?: true
   isGrid?: true
+  iconNumber?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -93,6 +101,7 @@ export type ListMaxAggregateInputType = {
   name?: true
   description?: true
   isGrid?: true
+  iconNumber?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -103,6 +112,7 @@ export type ListCountAggregateInputType = {
   name?: true
   description?: true
   isGrid?: true
+  iconNumber?: true
   createdAt?: true
   updatedAt?: true
   userId?: true
@@ -200,6 +210,7 @@ export type ListGroupByOutputType = {
   name: string
   description: string | null
   isGrid: boolean
+  iconNumber: number
   createdAt: Date
   updatedAt: Date
   userId: number
@@ -233,6 +244,7 @@ export type ListWhereInput = {
   name?: Prisma.StringFilter<"List"> | string
   description?: Prisma.StringNullableFilter<"List"> | string | null
   isGrid?: Prisma.BoolFilter<"List"> | boolean
+  iconNumber?: Prisma.IntFilter<"List"> | number
   createdAt?: Prisma.DateTimeFilter<"List"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"List"> | Date | string
   userId?: Prisma.IntFilter<"List"> | number
@@ -245,6 +257,7 @@ export type ListOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   isGrid?: Prisma.SortOrder
+  iconNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -260,6 +273,7 @@ export type ListWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"List"> | string
   description?: Prisma.StringNullableFilter<"List"> | string | null
   isGrid?: Prisma.BoolFilter<"List"> | boolean
+  iconNumber?: Prisma.IntFilter<"List"> | number
   createdAt?: Prisma.DateTimeFilter<"List"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"List"> | Date | string
   userId?: Prisma.IntFilter<"List"> | number
@@ -272,6 +286,7 @@ export type ListOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   isGrid?: Prisma.SortOrder
+  iconNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -290,6 +305,7 @@ export type ListScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"List"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"List"> | string | null
   isGrid?: Prisma.BoolWithAggregatesFilter<"List"> | boolean
+  iconNumber?: Prisma.IntWithAggregatesFilter<"List"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"List"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"List"> | Date | string
   userId?: Prisma.IntWithAggregatesFilter<"List"> | number
@@ -299,6 +315,7 @@ export type ListCreateInput = {
   name: string
   description?: string | null
   isGrid?: boolean
+  iconNumber?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutListsInput
@@ -310,6 +327,7 @@ export type ListUncheckedCreateInput = {
   name: string
   description?: string | null
   isGrid?: boolean
+  iconNumber?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: number
@@ -320,6 +338,7 @@ export type ListUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGrid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  iconNumber?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
@@ -331,6 +350,7 @@ export type ListUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGrid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  iconNumber?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -342,6 +362,7 @@ export type ListCreateManyInput = {
   name: string
   description?: string | null
   isGrid?: boolean
+  iconNumber?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: number
@@ -351,6 +372,7 @@ export type ListUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGrid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  iconNumber?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -360,6 +382,7 @@ export type ListUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGrid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  iconNumber?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -380,6 +403,7 @@ export type ListCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isGrid?: Prisma.SortOrder
+  iconNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -387,6 +411,7 @@ export type ListCountOrderByAggregateInput = {
 
 export type ListAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  iconNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -395,6 +420,7 @@ export type ListMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isGrid?: Prisma.SortOrder
+  iconNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -405,6 +431,7 @@ export type ListMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isGrid?: Prisma.SortOrder
+  iconNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -412,6 +439,7 @@ export type ListMinOrderByAggregateInput = {
 
 export type ListSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  iconNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -484,6 +512,7 @@ export type ListCreateWithoutUserInput = {
   name: string
   description?: string | null
   isGrid?: boolean
+  iconNumber?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.ListItemCreateNestedManyWithoutListInput
@@ -494,6 +523,7 @@ export type ListUncheckedCreateWithoutUserInput = {
   name: string
   description?: string | null
   isGrid?: boolean
+  iconNumber?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.ListItemUncheckedCreateNestedManyWithoutListInput
@@ -533,6 +563,7 @@ export type ListScalarWhereInput = {
   name?: Prisma.StringFilter<"List"> | string
   description?: Prisma.StringNullableFilter<"List"> | string | null
   isGrid?: Prisma.BoolFilter<"List"> | boolean
+  iconNumber?: Prisma.IntFilter<"List"> | number
   createdAt?: Prisma.DateTimeFilter<"List"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"List"> | Date | string
   userId?: Prisma.IntFilter<"List"> | number
@@ -542,6 +573,7 @@ export type ListCreateWithoutItemsInput = {
   name: string
   description?: string | null
   isGrid?: boolean
+  iconNumber?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutListsInput
@@ -552,6 +584,7 @@ export type ListUncheckedCreateWithoutItemsInput = {
   name: string
   description?: string | null
   isGrid?: boolean
+  iconNumber?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   userId: number
@@ -577,6 +610,7 @@ export type ListUpdateWithoutItemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGrid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  iconNumber?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
@@ -587,6 +621,7 @@ export type ListUncheckedUpdateWithoutItemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGrid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  iconNumber?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -597,6 +632,7 @@ export type ListCreateManyUserInput = {
   name: string
   description?: string | null
   isGrid?: boolean
+  iconNumber?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -605,6 +641,7 @@ export type ListUpdateWithoutUserInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGrid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  iconNumber?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ListItemUpdateManyWithoutListNestedInput
@@ -615,6 +652,7 @@ export type ListUncheckedUpdateWithoutUserInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGrid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  iconNumber?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ListItemUncheckedUpdateManyWithoutListNestedInput
@@ -625,6 +663,7 @@ export type ListUncheckedUpdateManyWithoutUserInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isGrid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  iconNumber?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -665,6 +704,7 @@ export type ListSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   description?: boolean
   isGrid?: boolean
+  iconNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -678,6 +718,7 @@ export type ListSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   description?: boolean
   isGrid?: boolean
+  iconNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -689,6 +730,7 @@ export type ListSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   description?: boolean
   isGrid?: boolean
+  iconNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -700,12 +742,13 @@ export type ListSelectScalar = {
   name?: boolean
   description?: boolean
   isGrid?: boolean
+  iconNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
 }
 
-export type ListOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "isGrid" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["list"]>
+export type ListOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "isGrid" | "iconNumber" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["list"]>
 export type ListInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   items?: boolean | Prisma.List$itemsArgs<ExtArgs>
@@ -729,6 +772,7 @@ export type $ListPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     description: string | null
     isGrid: boolean
+    iconNumber: number
     createdAt: Date
     updatedAt: Date
     userId: number
@@ -1161,6 +1205,7 @@ export interface ListFieldRefs {
   readonly name: Prisma.FieldRef<"List", 'String'>
   readonly description: Prisma.FieldRef<"List", 'String'>
   readonly isGrid: Prisma.FieldRef<"List", 'Boolean'>
+  readonly iconNumber: Prisma.FieldRef<"List", 'Int'>
   readonly createdAt: Prisma.FieldRef<"List", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"List", 'DateTime'>
   readonly userId: Prisma.FieldRef<"List", 'Int'>
